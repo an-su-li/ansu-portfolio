@@ -1,0 +1,146 @@
+:root {
+  --paper: #e9e7e1;
+  --ink: #181817;
+  --muted: #77756e;
+  --line: rgba(24, 24, 23, .2);
+  --accent: #7e3f28;
+  --pad: clamp(20px, 4vw, 64px);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+body.menu-open { overflow: hidden; }
+body::selection { color: var(--paper); background: var(--ink); }
+.grain {
+  position: fixed; inset: 0; z-index: 10; pointer-events: none; opacity: .16;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { color: inherit; font: inherit; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.eyebrow { margin: 0; color: var(--muted); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; }
+
+.site-header {
+  position: absolute; inset: 0 0 auto; z-index: 5; display: flex; align-items: center;
+  justify-content: space-between; padding: 28px var(--pad); color: #eee;
+}
+.logo { display: flex; align-items: baseline; gap: 10px; font-family: "Songti SC", SimSun, serif; font-size: 22px; letter-spacing: .12em; }
+.logo span { font: 9px/1 system-ui; letter-spacing: .22em; opacity: .7; }
+nav { display: flex; gap: clamp(20px, 3vw, 48px); font-size: 12px; letter-spacing: .12em; }
+nav a { position: relative; padding: 5px 0; }
+nav a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: currentColor; transition: width .25s; }
+nav a:hover::after { width: 100%; }
+.menu-button { display: none; border: 0; background: none; }
+
+.hero { position: relative; min-height: 100svh; color: #eee; background: #161513; }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,9,8,.84), rgba(10,9,8,.12) 68%, rgba(10,9,8,.18)); }
+.hero-image { position: absolute; inset: 0; margin: 0; overflow: hidden; }
+.hero-image img { width: 100%; height: 100%; object-fit: cover; opacity: .73; filter: saturate(.7) contrast(1.08); transform: scale(1.015); }
+.hero-image figcaption { position: absolute; z-index: 2; right: var(--pad); bottom: 32px; display: flex; gap: 26px; color: rgba(255,255,255,.65); font-size: 10px; letter-spacing: .12em; }
+.hero-copy { position: relative; z-index: 2; width: min(760px, 85vw); padding: clamp(180px, 24vh, 270px) var(--pad) 120px; }
+.hero-copy .eyebrow { color: rgba(255,255,255,.6); }
+h1 { margin: 28px 0 36px; font-family: "Songti SC", SimSun, serif; font-size: clamp(42px, 6.2vw, 96px); font-weight: 400; line-height: 1.15; letter-spacing: -.04em; }
+.intro { width: min(520px, 100%); margin: 0; color: rgba(255,255,255,.7); font-family: "Songti SC", SimSun, serif; font-size: clamp(15px, 1.35vw, 20px); line-height: 1.9; }
+.scroll-hint { position: absolute; z-index: 3; left: var(--pad); bottom: 33px; display: flex; align-items: center; gap: 12px; font-size: 10px; letter-spacing: .16em; color: rgba(255,255,255,.6); }
+.scroll-hint i { display: block; width: 46px; height: 1px; background: rgba(255,255,255,.45); transform-origin: left; animation: breathe 2.2s ease-in-out infinite; }
+@keyframes breathe { 50% { transform: scaleX(.45); } }
+
+.section { padding: clamp(100px, 14vw, 210px) var(--pad); }
+.section-heading { display: grid; grid-template-columns: 1fr 1fr; padding-bottom: 70px; border-bottom: 1px solid var(--line); }
+.section-note { margin: 0; max-width: 380px; color: var(--muted); font: 15px/1.9 "Songti SC", SimSun, serif; }
+.work { margin-top: clamp(80px, 10vw, 150px); }
+.work-featured { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(260px, .7fr); gap: clamp(36px, 7vw, 110px); align-items: end; }
+.work-image { position: relative; width: 100%; padding: 0; overflow: hidden; border: 0; background: #cbc8c0; cursor: zoom-in; }
+.work-image::after { content: "© 安素"; position: absolute; right: 16px; bottom: 12px; color: rgba(255,255,255,.56); font-size: 9px; letter-spacing: .16em; text-shadow: 0 1px 4px #000; }
+.work-image img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; transition: transform .8s cubic-bezier(.2,.75,.2,1), filter .8s; }
+.work-image > span { position: absolute; inset: auto auto 16px 16px; padding: 8px 12px; color: #eee; background: rgba(10,10,9,.58); font-size: 10px; letter-spacing: .12em; opacity: 0; transform: translateY(6px); transition: .3s; }
+.work-image:hover img { transform: scale(1.018); filter: brightness(.92); }
+.work-image:hover > span { opacity: 1; transform: none; }
+.work-info { padding-top: 24px; border-top: 1px solid var(--line); }
+.work-featured .work-info { padding-bottom: 12px; }
+.work-index { margin: 0 0 46px; color: var(--muted); font-size: 10px; letter-spacing: .15em; }
+.work-info h2 { margin: 0 0 12px; font: 400 clamp(29px, 3vw, 48px)/1.2 "Songti SC", SimSun, serif; }
+.work-meta { margin: 0 0 28px; color: var(--muted); font-size: 11px; letter-spacing: .09em; }
+.work-info > p:not([class]) { margin: 0; font: 15px/1.9 "Songti SC", SimSun, serif; }
+.work-info small { display: block; margin-top: 24px; color: #99968d; font-size: 9px; letter-spacing: .1em; }
+.work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 7vw, 110px); align-items: start; }
+.work-grid .work-offset { margin-top: clamp(160px, 20vw, 300px); }
+
+.practice { display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; color: #e8e5dd; background: #1b1b19; }
+.practice h2 { margin: 32px 0 0; font: 400 clamp(34px, 4.5vw, 68px)/1.35 "Songti SC", SimSun, serif; }
+.practice-body { padding-top: 45px; }
+.practice-body > p { margin: 0 0 28px; max-width: 560px; color: #aaa79f; font: 17px/2 "Songti SC", SimSun, serif; }
+.practice-body ol { margin: 70px 0 0; padding: 0; list-style: none; border-top: 1px solid #3d3c38; }
+.practice-body li { display: flex; gap: 28px; padding: 20px 0; border-bottom: 1px solid #3d3c38; font-size: 13px; letter-spacing: .08em; }
+.practice-body li span { color: #77746d; font-size: 10px; }
+
+.about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; margin-top: 75px; }
+.about h2 { margin: 0; font: 400 clamp(75px, 12vw, 180px)/.8 "Songti SC", SimSun, serif; letter-spacing: -.09em; }
+.about h2 span { font: 10px/1 system-ui; letter-spacing: .34em; }
+.about-copy { padding-top: 20px; }
+.about-copy > p { max-width: 520px; margin: 0 0 25px; font: 18px/2 "Songti SC", SimSun, serif; }
+.about-copy .status { margin-top: 55px; color: var(--muted); font: 12px/1.5 system-ui; letter-spacing: .1em; }
+.status i { display: inline-block; width: 7px; height: 7px; margin-right: 10px; border-radius: 50%; background: #617d55; box-shadow: 0 0 0 5px rgba(97,125,85,.12); }
+
+.contact { color: #e8e5dd; background: var(--accent); }
+.contact .eyebrow { color: rgba(255,255,255,.58); }
+.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; margin-top: 70px; }
+.contact h2 { margin: 0; font: 400 clamp(42px, 6vw, 86px)/1.25 "Songti SC", SimSun, serif; }
+.contact-links { align-self: end; }
+.contact-links a { display: flex; justify-content: space-between; padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,.28); font-size: clamp(14px, 1.5vw, 20px); letter-spacing: .04em; }
+.contact-links span { transition: transform .25s; }
+.contact-links a:hover span { transform: translate(4px,-4px); }
+footer { display: grid; grid-template-columns: 1fr 1fr auto; gap: 20px; padding: 28px var(--pad); color: #8e8b84; background: #171715; font-size: 9px; letter-spacing: .12em; }
+footer p { margin: 0; }
+
+.lightbox { width: 100vw; max-width: none; height: 100vh; max-height: none; padding: 52px; border: 0; color: #eee; background: rgba(13,13,12,.96); }
+.lightbox::backdrop { background: #111; }
+.lightbox img { width: 100%; height: calc(100% - 20px); object-fit: contain; }
+.lightbox button { position: fixed; top: 20px; right: 28px; z-index: 2; border: 0; color: #eee; background: transparent; cursor: pointer; font-size: 12px; letter-spacing: .12em; }
+.lightbox p { position: fixed; left: 28px; bottom: 20px; margin: 0; color: #777; font-size: 9px; letter-spacing: .12em; }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.75,.2,1); }
+.reveal.visible { opacity: 1; transform: none; }
+
+@media (max-width: 760px) {
+  .site-header { position: absolute; padding-top: 22px; }
+  .menu-button { position: relative; z-index: 8; display: block; width: 30px; height: 30px; padding: 6px 0; }
+  .menu-button span:not(.sr-only) { display: block; width: 24px; height: 1px; margin: 6px 0 6px auto; background: currentColor; transition: .25s; }
+  .menu-open .menu-button span:first-child { transform: translateY(3.5px) rotate(45deg); }
+  .menu-open .menu-button span:nth-child(2) { transform: translateY(-3.5px) rotate(-45deg); }
+  nav { position: fixed; inset: 0; z-index: 7; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 34px; color: #eee; background: #1a1917; font: 28px "Songti SC", SimSun, serif; opacity: 0; pointer-events: none; transition: opacity .3s; }
+  .menu-open nav { opacity: 1; pointer-events: auto; }
+  .hero-copy { padding-top: 32vh; }
+  .hero::after { background: linear-gradient(0deg, rgba(10,9,8,.83), rgba(10,9,8,.1) 80%); }
+  .hero-image img { object-position: 54% center; }
+  .hero-image figcaption { display: none; }
+  .intro { font-size: 14px; }
+  .section-heading, .work-featured, .practice, .about-layout, .contact-layout { grid-template-columns: 1fr; }
+  .section-heading { gap: 26px; padding-bottom: 40px; }
+  .work-featured { gap: 25px; }
+  .work-grid { display: block; }
+  .work-grid .work-offset { margin-top: 90px; }
+  .work-index { margin-bottom: 28px; }
+  .practice { gap: 50px; }
+  .practice-body { padding-top: 0; }
+  .practice-body > p { font-size: 15px; }
+  .about-layout { gap: 45px; }
+  .about h2 { font-size: 100px; }
+  .about-copy > p { font-size: 16px; }
+  .contact-layout { gap: 70px; }
+  footer { grid-template-columns: 1fr; gap: 12px; }
+  .lightbox { padding: 45px 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
